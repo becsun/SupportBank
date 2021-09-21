@@ -1,7 +1,6 @@
 package training.supportbank;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Account {
     private String name;
@@ -15,26 +14,26 @@ public class Account {
     }
 
 
-
-    public void moneyReceived(double amount){
-        this.money = this.money+amount;
+    public void moneyReceived(Transactions credit) {
+        this.transactionCredit.add(credit);
+        this.money = this.money + credit.getAmount();
     }
 
+    public String getName() {
+        return name;
+    }
 
-
-    public void moneyPaid(Transactions credit){
-        this.transactionCredit.add(credit);
-
-        //need a get method
-        this.money = this.money - credit.getAmount();
+    public void moneyPaid(Transactions deduction){
+        this.transactionCredit.add(deduction);
+        this.money = this.money - deduction.getAmount();
     }
 
     public String toString(){
         return "name "+name+" money "+ money+ "transactions " +transactionCredit;
     }
 
-    public String getName(){
-        return name;
+    public double getBalance(){
+        return money;
     }
 
     public ArrayList<Transactions> getTransaction(){

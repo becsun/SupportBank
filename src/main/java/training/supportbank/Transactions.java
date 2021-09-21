@@ -36,6 +36,6 @@ public class Transactions {
     }
 
     public String toString(){
-        return "name "+personGivingMoney+" money "+ personGettingMoney+ "transactions " +amount;
+        return "date "+date+ "name "+personGivingMoney+" money "+ personGettingMoney+ "transactions " +amount;
     }
 }

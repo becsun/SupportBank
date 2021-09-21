@@ -10,19 +10,21 @@ public class Main {
 
     private static HashMap<String, Account> accountHolders = new HashMap<>();
 
+
     public static void main(String args[]) {
-        String path = "Transactions2014 (1).csv";
+        String path = "test.csv";
         String line = "";
         printActions();
-        HashMap<String, Integer> allAccounts = new HashMap<>();
+
 
         try {
 
             BufferedReader br = new BufferedReader((new FileReader(path)));
-            String [] values = new String[0];
+
             while ((line = br.readLine()) != null) {
+                String [] values = new String[0];
                  values = line.split(",");
-            }
+
                 if (!values[0].equals("Date")) {
                     String date = values[0];
                     String fromName = values[1];
@@ -34,10 +36,10 @@ public class Main {
                     findOrMakeAccount(fromName);
                     findOrMakeAccount(toName);
 
+                    accountHolders.get(fromName).moneyPaid(new Transactions(date, fromName, toName, narrative, amount));
+                    accountHolders.get(toName).moneyReceived(new Transactions(date, fromName, toName, narrative, amount));
 
-                    accountHolders.get(fromName).moneyPaid(new Transactions(date,fromName,toName,narrative,amount));
-
-
+                }
             }
 
 
@@ -47,34 +49,33 @@ public class Main {
             e.printStackTrace();
         }
 
-//        for ( Account i : accountHolders.values()){
-//            System.out.println(i);
-//            System.out.println(i.getTransaction());
-//        }
-        accountHolders.forEach((e, k) -> System.out.println(k));
-
-
-
-        Scanner scanner = new Scanner(System.in);
-        boolean quit = false;
-
-
-        while (!quit) {
-
-            int accountChoice = scanner.nextInt();
-
-            switch (accountChoice) {
-                case 1:
-                    System.out.println("list to be displayed");
-                    break;
-                case 2:
-                    System.out.println("What was you name?");
-                    break;
-                case 3:
-                    System.out.println("Bye");
-                    quit = true;
-            }
+        for ( Account i : accountHolders.values()){
+            System.out.println("Account Holder: "+i.getName()+" Balance: "+i.getBalance());
         }
+//        accountHolders.forEach((e, k) -> System.out.println(k));
+
+
+//
+//        Scanner scanner = new Scanner(System.in);
+//        boolean quit = false;
+//
+//
+//        while (!quit) {
+//
+//            int accountChoice = scanner.nextInt();
+//
+//            switch (accountChoice) {
+//                case 1:
+//                    System.out.println("list to be displayed");
+//                    break;
+//                case 2:
+//                    System.out.println("What was you name?");
+//                    break;
+//                case 3:
+//                    System.out.println("Bye");
+//                    quit = true;
+//            }
+//        }
 
     }
 
