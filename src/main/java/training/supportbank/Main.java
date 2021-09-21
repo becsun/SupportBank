@@ -13,16 +13,17 @@ public class Main {
     public static void main(String args[]) {
         String path = "Transactions2014 (1).csv";
         String line = "";
-
-        HashMap<String,Integer> allAccounts = new HashMap<>();
+        printActions();
+        HashMap<String, Integer> allAccounts = new HashMap<>();
 
         try {
 
             BufferedReader br = new BufferedReader((new FileReader(path)));
+            String [] values = new String[0];
             while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
-
-                if( !values[0].equals("Date")){
+                 values = line.split(",");
+            }
+                if (!values[0].equals("Date")) {
                     String date = values[0];
                     String fromName = values[1];
                     String toName = values[2];
@@ -33,7 +34,9 @@ public class Main {
                     findOrMakeAccount(fromName);
                     findOrMakeAccount(toName);
 
-                }
+
+                    accountHolders.get(fromName).moneyPaid(new Transactions(date,fromName,toName,narrative,amount));
+
 
             }
 
@@ -43,48 +46,60 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        accountHolders.forEach((e,k) -> System.out.println(k.getName()));
+
+//        for ( Account i : accountHolders.values()){
+//            System.out.println(i);
+//            System.out.println(i.getTransaction());
+//        }
+        accountHolders.forEach((e, k) -> System.out.println(k));
+
+
+
+        Scanner scanner = new Scanner(System.in);
+        boolean quit = false;
+
+
+        while (!quit) {
+
+            int accountChoice = scanner.nextInt();
+
+            switch (accountChoice) {
+                case 1:
+                    System.out.println("list to be displayed");
+                    break;
+                case 2:
+                    System.out.println("What was you name?");
+                    break;
+                case 3:
+                    System.out.println("Bye");
+                    quit = true;
+            }
+        }
 
     }
 
     private static Account findOrMakeAccount(String fromName) {
         Account account = accountHolders.get(fromName);
-        if(account == null) {
+        if (account == null) {
             account = new Account(fromName);
             accountHolders.put(fromName, account);
         }
 
         return account;
     }
-//        Scanner scanner = new Scanner(System.in);
-//        boolean quit = false;
-//        printActions();
-//
-//        while (!quit) {
-//
-//            int accountChoice = scanner.nextInt();
-//
-//            switch (accountChoice) {
-//                case 1:
-//                    System.out.println("list to be displayed");
-//                    break;
-//                case 2:
-//                    System.out.println("What was you name?");
-//                    break;
-//                case 3:
-//                    System.out.println("Bye");
-//                    quit = true;
-//            }
-//        }
 
 
 
-//    private static void printActions(){
-//        System.out.println("What would you like to do today?");
-//        System.out.println("1. List All \n" +
-//                "2. List your account: \n" +
-//                "3. quit");
-//    }
+
+
+
+
+    private static void printActions(){
+        System.out.println("What would you like to do today?");
+        System.out.println("1. List All \n" +
+                "2. List your account: \n" +
+                "3. quit");
+    }
 
 
 

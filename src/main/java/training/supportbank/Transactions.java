@@ -34,4 +34,8 @@ public class Transactions {
     public double getAmount() {
         return amount;
     }
+
+    public String toString(){
+        return "name "+personGivingMoney+" money "+ personGettingMoney+ "transactions " +amount;
+    }
 }
