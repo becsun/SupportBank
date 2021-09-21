@@ -17,27 +17,26 @@ public class Main {
         try {
 
             BufferedReader br = new BufferedReader((new FileReader(path)));
-
             while ((line = br.readLine()) != null) {
-//                System.out.println(line);
-//                while((line = br.readLine()) != null){
                 String[] values = line.split(",");
-//                System.out.println(values[1] + values[2] + values[4]);
 
-                accountHolders.add(values[1]);
+                String date = values[0];
+                String fromName = values[1];
+                String toName = values[2];
+                String narrative = values[3];
+                String amount = values[4];
 
-//                for(String i : accountHolders){
-//                    System.out.println(i);
 //                }
-                System.out.print(accountHolders);
-//                System.out.println(accountHolders);
 
             }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
     }
 //        Scanner scanner = new Scanner(System.in);
 //        boolean quit = false;

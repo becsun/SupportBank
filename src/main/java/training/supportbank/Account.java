@@ -1,9 +1,12 @@
 package training.supportbank;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Account {
     private String name;
     private double money;
-//    private Transaction;
+    private ArrayList<Transactions> transactions;
 
     public Account(String initialName) {
         this.name = initialName;
@@ -22,6 +25,8 @@ public class Account {
     public void moneyPaid(double amount){
         this.money = this.money - amount;
     }
+
+
 
 
 }
