@@ -13,6 +13,7 @@ public class Main {
         String path = "Transactions2014 (1).csv";
         String line = "";
         Set<String> accountHolders = new HashSet<String>();
+        HashMap<String,Integer> allAccounts = new HashMap<>();
 
         try {
 
@@ -24,11 +25,28 @@ public class Main {
                 String fromName = values[1];
                 String toName = values[2];
                 String narrative = values[3];
-                String amount = values[4];
+                double amount = Double.parseDouble(values[4]);
 
-//                }
+//                System.out.println(fromName);
+
+                Account fromAccount = new Account(fromName );
+                if(!accountHolders.contains(fromName )){
+                    accountHolders.add(fromName);
+                    fromAccount.moneyPaid(amount);
+                }
+                Account toAccount = new Account(toName);
+                if(!accountHolders.contains(toName)){
+                    accountHolders.add(toName);
+                }
+                System.out.println(fromAccount.getMoney());
 
             }
+
+            for(String i: accountHolders){
+                allAccounts.put(i,0 );
+            }
+            System.out.println(allAccounts);
+
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
