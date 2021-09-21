@@ -22,12 +22,15 @@ public class Main {
 //                System.out.println(line);
 //                while((line = br.readLine()) != null){
                 String[] values = line.split(",");
-                System.out.println(values[1] + values[2] + values[4]);
+//                System.out.println(values[1] + values[2] + values[4]);
 
-                Collections.addAll(accountHolders, values);
                 accountHolders.add(values[1]);
+
+//                for(String i : accountHolders){
+//                    System.out.println(i);
+//                }
                 System.out.print(accountHolders);
-                System.out.println(accountHolders);
+//                System.out.println(accountHolders);
 
             }
         } catch (FileNotFoundException e) {
@@ -35,36 +38,36 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        Scanner scanner = new Scanner(System.in);
-        boolean quit = false;
-        printActions();
-
-        while (!quit) {
-
-            int accountChoice = scanner.nextInt();
-
-            switch (accountChoice) {
-                case 1:
-                    System.out.println("list to be displayed");
-                    break;
-                case 2:
-                    System.out.println("What was you name?");
-                    break;
-                case 3:
-                    System.out.println("Bye");
-                    quit = true;
-            }
-        }
-
-
-        }
-    private static void printActions(){
-        System.out.println("What would you like to do today?");
-        System.out.println("1. List All \n" +
-                "2. List your account: \n" +
-                "3. quit");
     }
+//        Scanner scanner = new Scanner(System.in);
+//        boolean quit = false;
+//        printActions();
+//
+//        while (!quit) {
+//
+//            int accountChoice = scanner.nextInt();
+//
+//            switch (accountChoice) {
+//                case 1:
+//                    System.out.println("list to be displayed");
+//                    break;
+//                case 2:
+//                    System.out.println("What was you name?");
+//                    break;
+//                case 3:
+//                    System.out.println("Bye");
+//                    quit = true;
+//            }
+//        }
+
+
+
+//    private static void printActions(){
+//        System.out.println("What would you like to do today?");
+//        System.out.println("1. List All \n" +
+//                "2. List your account: \n" +
+//                "3. quit");
+//    }
 
 
 
