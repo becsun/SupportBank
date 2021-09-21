@@ -1,6 +1,5 @@
 package training.supportbank;
 
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -9,10 +8,12 @@ import java.util.*;
 
 public class Main {
 
+    private static HashMap<String, Account> accountHolders = new HashMap<>();
+
     public static void main(String args[]) {
         String path = "Transactions2014 (1).csv";
         String line = "";
-        Set<String> accountHolders = new HashSet<String>();
+
         HashMap<String,Integer> allAccounts = new HashMap<>();
 
         try {
@@ -21,31 +22,20 @@ public class Main {
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
 
-                String date = values[0];
-                String fromName = values[1];
-                String toName = values[2];
-                String narrative = values[3];
-                double amount = Double.parseDouble(values[4]);
+                if( !values[0].equals("Date")){
+                    String date = values[0];
+                    String fromName = values[1];
+                    String toName = values[2];
+                    String narrative = values[3];
+                    double amount = Double.parseDouble(values[4]);
 
-//                System.out.println(fromName);
 
-                Account fromAccount = new Account(fromName );
-                if(!accountHolders.contains(fromName )){
-                    accountHolders.add(fromName);
-                    fromAccount.moneyPaid(amount);
+                    findOrMakeAccount(fromName);
+                    findOrMakeAccount(toName);
+
                 }
-                Account toAccount = new Account(toName);
-                if(!accountHolders.contains(toName)){
-                    accountHolders.add(toName);
-                }
-                System.out.println(fromAccount.getMoney());
 
             }
-
-            for(String i: accountHolders){
-                allAccounts.put(i,0 );
-            }
-            System.out.println(allAccounts);
 
 
         } catch (FileNotFoundException e) {
@@ -53,8 +43,18 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        accountHolders.forEach((e,k) -> System.out.println(k.getName()));
 
+    }
 
+    private static Account findOrMakeAccount(String fromName) {
+        Account account = accountHolders.get(fromName);
+        if(account == null) {
+            account = new Account(fromName);
+            accountHolders.put(fromName, account);
+        }
+
+        return account;
     }
 //        Scanner scanner = new Scanner(System.in);
 //        boolean quit = false;
