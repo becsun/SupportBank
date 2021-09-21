@@ -14,6 +14,7 @@ public class Main {
     public static void main(String args[]) {
         String path = "test.csv";
         String line = "";
+        System.out.println("What would you like to do today?");
         printActions();
 
 
@@ -49,33 +50,38 @@ public class Main {
             e.printStackTrace();
         }
 
-        for ( Account i : accountHolders.values()){
-            System.out.println("Account Holder: "+i.getName()+" Balance: "+i.getBalance());
+
+//
+//        System.out.println( accountHolders.get("Ben B").getTransaction());
+
+        Scanner scanner = new Scanner(System.in);
+        boolean quit = false;
+
+
+        while (!quit) {
+
+            int accountChoice = scanner.nextInt();
+            String nameInput = scanner.nextLine();
+
+
+            switch (accountChoice) {
+                case 1:
+                    for ( Account i : accountHolders.values()){
+                        System.out.println("Account Holder: "+i.getName()+" ****** Total Balance: "+i.getBalance());
+                    }
+                    printActions();
+                    break;
+                case 2:
+                    System.out.println("What was you name?");
+
+                    System.out.println(nameInput);
+                    accountHolders.get(nameInput).getTransaction();
+                    break;
+                case 3:
+                    System.out.println("Bye");
+                    quit = true;
+            }
         }
-//        accountHolders.forEach((e, k) -> System.out.println(k));
-
-
-//
-//        Scanner scanner = new Scanner(System.in);
-//        boolean quit = false;
-//
-//
-//        while (!quit) {
-//
-//            int accountChoice = scanner.nextInt();
-//
-//            switch (accountChoice) {
-//                case 1:
-//                    System.out.println("list to be displayed");
-//                    break;
-//                case 2:
-//                    System.out.println("What was you name?");
-//                    break;
-//                case 3:
-//                    System.out.println("Bye");
-//                    quit = true;
-//            }
-//        }
 
     }
 
@@ -90,14 +96,9 @@ public class Main {
     }
 
 
-
-
-
-
-
     private static void printActions(){
-        System.out.println("What would you like to do today?");
-        System.out.println("1. List All \n" +
+        System.out.println("Choose from the following: \n" +
+                "1. List All \n" +
                 "2. List your account: \n" +
                 "3. quit");
     }

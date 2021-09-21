@@ -29,7 +29,7 @@ public class Account {
     }
 
     public String toString(){
-        return "name "+name+" money "+ money+ "transactions " +transactionCredit;
+        return "Account Holder: "+name+" Amount: "+ money+ " Transactions: " +transactionCredit;
     }
 
     public double getBalance(){
