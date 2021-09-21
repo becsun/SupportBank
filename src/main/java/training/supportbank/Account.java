@@ -3,10 +3,11 @@ package training.supportbank;
 public class Account {
     private String name;
     private double money;
+//    private Transaction;
 
-    public Account(String name) {
-        this.name = name;
-        this.money = money;
+    public Account(String initialName) {
+        this.name = initialName;
+        this.money = 0;
     }
 
 

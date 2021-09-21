@@ -5,53 +5,68 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
+
     public static void main(String args[]) {
-        String path = "/Users/rsun5/Transactions2014 (1).csv";
-        String line ="";
+        String path = "Transactions2014 (1).csv";
+        String line = "";
+        Set<String> accountHolders = new HashSet<String>();
 
-
-
-        try{
+        try {
 
             BufferedReader br = new BufferedReader((new FileReader(path)));
 
-            while((line = br.readLine()) != null){
+            while ((line = br.readLine()) != null) {
 //                System.out.println(line);
 //                while((line = br.readLine()) != null){
-                    String [] values = line.split(",");
-                    System.out.println(values[1] + values[2]+values[4]);
-                Set<String> accountHolders = new HashSet<String>();
+                String[] values = line.split(",");
+                System.out.println(values[1] + values[2] + values[4]);
+
+                Collections.addAll(accountHolders, values);
                 accountHolders.add(values[1]);
                 System.out.print(accountHolders);
+                System.out.println(accountHolders);
 
             }
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
+        Scanner scanner = new Scanner(System.in);
+        boolean quit = false;
+        printActions();
 
+        while (!quit) {
+
+            int accountChoice = scanner.nextInt();
+
+            switch (accountChoice) {
+                case 1:
+                    System.out.println("list to be displayed");
+                    break;
+                case 2:
+                    System.out.println("What was you name?");
+                    break;
+                case 3:
+                    System.out.println("Bye");
+                    quit = true;
+            }
+        }
+
+
+        }
+    private static void printActions(){
         System.out.println("What would you like to do today?");
         System.out.println("1. List All \n" +
-                            "2. List your account:");
-        Scanner scanner = new Scanner(System.in);
-        int accountChoice = scanner.nextInt();
-        if(accountChoice == 1){
-            System.out.println("list to be displayed");
-        }else if (accountChoice == 2){
-            System.out.println("What was you name?");
-        }else{
-            System.out.println("please pick from the 2 choices");
-        }
-
+                "2. List your account: \n" +
+                "3. quit");
     }
+
+
 
 
 
