@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.*;
 
 
@@ -20,18 +21,22 @@ import java.util.regex.Pattern;
 
 
 
+
 public class Main {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
 
 
     private static HashMap<String, Account> accountHolders = new HashMap<>();
+    private static ArrayList<String> jsonAccountHolders = new ArrayList<>();
 
 
 
 
     public static void main(String args[] ) throws IOException{
         String path = "test.csv";
+        String pathJson = "Transactions2013.json";
         String line = "";
+        String jsonLine = "";
         System.out.println("What would you like to do today?");
         printActions();
 
@@ -43,16 +48,27 @@ public class Main {
         try {
 
             GsonBuilder gsonBuilder = new GsonBuilder();
-            gsonBuilder.registerTypeAdapter(LocalDate.class, (JsonDeserializer<LocalDate>) (jsonElement, type, jsonDeserializationContext) ->
-                    // Convert jsonElement to a LocalDate here...
-            );
+            gsonBuilder.registerTypeAdapter(LocalDate.class, (JsonDeserializer<LocalDate>) ( jsonElement, type, jsonDeserializationContext) ->
+                    LocalDate.from(ZonedDateTime.parse(jsonElement.getAsJsonPrimitive().getAsString()).toLocalDateTime()));
+
             Gson gson = gsonBuilder.create();
 
-            BufferedReader br = new BufferedReader((new FileReader(path)));
+            BufferedReader bufferedReaderCSV = new BufferedReader((new FileReader(path)));
 
-            while ((line = br.readLine()) != null) {
-                String [] values = new String[0];
-                 values = line.split(",");
+            BufferedReader bufferedReaderJson = new BufferedReader(new FileReader(pathJson));
+
+            while ((line = bufferedReaderCSV.readLine()) != null && (jsonLine = bufferedReaderJson.readLine()) != null) {
+
+
+                String [] jsonValue;
+                String [] values;
+                values = line.split(",");
+                jsonValue = jsonLine.split(",");
+
+                System.out.println(jsonValue[0]);
+
+
+
 
                 if (!values[0].equals("Date")) {
                     String date = values[0];
@@ -60,7 +76,6 @@ public class Main {
                     String toName = values[2];
                     String narrative = values[3];
                     double amount = Double.parseDouble(values[4]);
-
 
                     findOrMakeAccount(fromName);
                     findOrMakeAccount(toName);
