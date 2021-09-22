@@ -1,26 +1,52 @@
 package training.supportbank;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializer;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
+
+
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+
 public class Main {
+    private static final Logger logger = Logger.getLogger(Main.class.getName());
+
 
     private static HashMap<String, Account> accountHolders = new HashMap<>();
 
 
-    public static void main(String args[]) {
+
+
+    public static void main(String args[] ) throws IOException{
         String path = "test.csv";
         String line = "";
         System.out.println("What would you like to do today?");
         printActions();
 
+//        logger.setLevel(Level.FINE);
+//        logger.setLevel(Level.INFO);
+        logger.info("HI");
+        logger.warning("Error");
 
         try {
+
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.registerTypeAdapter(LocalDate.class, (JsonDeserializer<LocalDate>) (jsonElement, type, jsonDeserializationContext) ->
+                    // Convert jsonElement to a LocalDate here...
+            );
+            Gson gson = gsonBuilder.create();
 
             BufferedReader br = new BufferedReader((new FileReader(path)));
 
@@ -46,6 +72,7 @@ public class Main {
             }
 
         } catch (FileNotFoundException e) {
+           logger.info("File not found");
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
@@ -100,38 +127,6 @@ public class Main {
                 "2. List Transactions: \n" +
                 "3. quit");
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
