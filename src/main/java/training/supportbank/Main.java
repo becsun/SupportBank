@@ -42,8 +42,7 @@ public class Main {
 
                 }
             }
-
-
+            
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -51,38 +50,32 @@ public class Main {
         }
 
 
-//
-//        System.out.println( accountHolders.get("Ben B").getTransaction());
-
         Scanner scanner = new Scanner(System.in);
         boolean quit = false;
 
 
         while (!quit) {
 
-            int accountChoice = scanner.nextInt();
-            String nameInput = scanner.nextLine();
-
+            String accountChoice = scanner.nextLine();
 
             switch (accountChoice) {
-                case 1:
+                case "List All":
                     for ( Account i : accountHolders.values()){
                         System.out.println("Account Holder: "+i.getName()+" ****** Total Balance: "+i.getBalance());
                     }
                     printActions();
                     break;
-                case 2:
-                    System.out.println("What was you name?");
-
-                    System.out.println(nameInput);
-                    accountHolders.get(nameInput).getTransaction();
+                case "List your account":
+                    System.out.println("Print your name?");
+                    String nameInput = scanner.nextLine();
+                    System.out.println(accountHolders.get(nameInput).getTransaction());
                     break;
-                case 3:
+                case "quit":
                     System.out.println("Bye");
                     quit = true;
+
             }
         }
-
     }
 
     private static Account findOrMakeAccount(String fromName) {
