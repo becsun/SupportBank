@@ -5,17 +5,17 @@ import java.util.ArrayList;
 public class Account {
     private String name;
     private double money;
-    private ArrayList<Transactions> transactionCredit;
+    private ArrayList<Transactions> allTransactions;
 
     public Account(String initialName) {
         this.name = initialName;
         this.money = 0;
-        this.transactionCredit = new ArrayList<Transactions>();
+        this.allTransactions = new ArrayList<Transactions>();
     }
 
 
     public void moneyReceived(Transactions credit) {
-        this.transactionCredit.add(credit);
+        this.allTransactions.add(credit);
         this.money = this.money + credit.getAmount();
     }
 
@@ -24,12 +24,12 @@ public class Account {
     }
 
     public void moneyPaid(Transactions deduction){
-        this.transactionCredit.add(deduction);
+        this.allTransactions.add(deduction);
         this.money = this.money - deduction.getAmount();
     }
 
     public String toString(){
-        return "Account Holder: "+name+" Amount: "+ money+ " Transactions: " +transactionCredit;
+        return "Account Holder: "+name+" Amount: "+ money+ " Transactions: " + allTransactions;
     }
 
     public double getBalance(){
@@ -37,7 +37,7 @@ public class Account {
     }
 
     public ArrayList<Transactions> getTransaction(){
-        return transactionCredit;
+        return allTransactions;
     }
 
 
