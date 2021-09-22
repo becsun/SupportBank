@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
 
@@ -42,7 +44,7 @@ public class Main {
 
                 }
             }
-            
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -51,14 +53,17 @@ public class Main {
 
 
         Scanner scanner = new Scanner(System.in);
+        String accountChoice = scanner.nextLine();
         boolean quit = false;
 
+        Pattern listAll = Pattern.compile("\"(List\\sall)|(list\\stransactions)|(quit)\"img");
+        Matcher m = listAll.matcher(accountChoice);
 
-        while (!quit) {
+        while (!quit && m.find()) {
 
-            String accountChoice = scanner.nextLine();
 
-            switch (accountChoice) {
+            switch (m.group()) {
+
                 case "List All":
                     for ( Account i : accountHolders.values()){
                         System.out.println("Account Holder: "+i.getName()+" ****** Total Balance: "+i.getBalance());
@@ -92,7 +97,7 @@ public class Main {
     private static void printActions(){
         System.out.println("Choose from the following: \n" +
                 "1. List All \n" +
-                "2. List your account: \n" +
+                "2. List Transactions: \n" +
                 "3. quit");
     }
 
